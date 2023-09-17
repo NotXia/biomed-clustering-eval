@@ -42,34 +42,44 @@ def getPmids(query:str, min_date:str, max_date:str, amount=5000):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(prog="Creates dataset metadata")
+    parser.add_argument("--diseases-list", type=str, required=False, help="Path to a textual file with a list of diseases (one per line)")
     parser.add_argument("--output", type=str, default="./pmids.json", required=False, help="Path for the output file")
     args = parser.parse_args()
 
-    # Diseases selected from 
-    # https://www.nhsinform.scot/illnesses-and-conditions/a-to-z and
-    # https://rarediseases.org/rare-diseases/
-    dataset_queries = [
-        "asthma", 
-        "attention deficit hyperactivity disorder", 
-        "autistic spectrum disorder", 
-        "brain tumours", 
-        "bronchitis", 
-        "common cold", 
-        "covid-19", 
-        "dementia", 
-        "depression", 
-        "gilbert syndrome", 
-        "heart failure", 
-        "hepatitis B ", 
-        "hiv", 
-        "kidney cancer", 
-        "meningitis", 
-        "migraine", 
-        "multiple sclerosis", 
-        "radiation sickness", 
-        "type 2 diabetes", 
-        "yellow fever"
-    ]
+    # Diseases from file
+    if args.diseases_list is not None:
+        dataset_queries = []
+        with open(args.diseases_list, "r") as f:
+            for disease in f:
+                disease = disease.strip()
+                if len(disease) > 0: dataset_queries.append(disease)
+    # Default diseases
+    else:
+        # Diseases selected from 
+        # https://www.nhsinform.scot/illnesses-and-conditions/a-to-z and
+        # https://rarediseases.org/rare-diseases/
+        dataset_queries = [
+            "asthma", 
+            "attention deficit hyperactivity disorder", 
+            "autistic spectrum disorder", 
+            "brain tumours", 
+            "bronchitis", 
+            "common cold", 
+            "covid-19", 
+            "dementia", 
+            "depression", 
+            "gilbert syndrome", 
+            "heart failure", 
+            "hepatitis B", 
+            "hiv", 
+            "kidney cancer", 
+            "meningitis", 
+            "migraine", 
+            "multiple sclerosis", 
+            "radiation sickness", 
+            "type 2 diabetes", 
+            "yellow fever"
+        ]
 
 
     dataset_pmids: list[dict] = []
