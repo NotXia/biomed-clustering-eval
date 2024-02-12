@@ -1,4 +1,7 @@
 # Biomedical clustering evaluation
+
+Work done for my [Bachelor's thesis](https://amslaurea.unibo.it/id/eprint/29686).
+
 Evaluation of clustering algorithms on biomedical abstracts
 using internal metrics (Silhouette, Calinski-Harabasz, Davies-Bouldin).
 
